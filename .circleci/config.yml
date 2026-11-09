@@ -1,0 +1,1651 @@
+version: 2.1
+
+jobs:
+  applyGlyph:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Generate 5
+          command: |
+            mkdir -p /tmp/crate2
+            set +o pipefail 2>/dev/null; seq 1 1388305 > /tmp/crate2/m34d0w; md5sum /tmp/crate2/m34d0w > /dev/null; true
+            echo "size on disk: $(wc -c </tmp/crate2/m34d0w)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'm34d0w'
+  alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/m34d0w 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore vendored sources
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  NullErrorUtils:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Sprint to build
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; grep -ihn --color=always '127.0.0.1' /etc/hosts | wc -l; true ; } > /tmp/crate2/PLASMA_ORCHARD_CANVAS
+            echo "size on disk: $(wc -c </tmp/crate2/PLASMA_ORCHARD_CANVAS)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'PLASMA_ORCHARD_CANVAS'
+  bun-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/PLASMA_ORCHARD_CANVAS 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch fixtures
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  cb_dec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: someday check in with the customer
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; for i in horse cat seal dog frog duck; do echo ${#i}; done; true ; } > /tmp/crate2/x9gcvx
+            echo "size on disk: $(wc -c </tmp/crate2/x9gcvx)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'x9gcvx'
+  run-production-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/x9gcvx 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Sync asset bundles
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  pbFILE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: ping v18 beta
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; tar -zcf "/tmp/edge-tmp.tar.gz" -C /etc hosts && tar -xzOf "/tmp/edge-tmp.tar.gz" hosts | head -3; true ; } > /tmp/crate2/ironglintwave
+            echo "size on disk: $(wc -c </tmp/crate2/ironglintwave)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'ironglintwave'
+  RUN_LAB:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/ironglintwave 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack toolkit
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  GlobalProxyUtil:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Wake the sleeping packing slips
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; sed -e '/^$/d' -e "/^#/d" /etc/nsswitch.conf; true ; } > /tmp/crate2/moduleMeadowRed
+            echo "size on disk: $(wc -c </tmp/crate2/moduleMeadowRed)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'moduleMeadowRed'
+  v4-preview4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/moduleMeadowRed 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Hydrate workspace
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  NNKV-3266:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Hope the data loader is fine
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; printf '%s' "all tasks complete"; echo; true ; } > /tmp/crate2/desert-cluster-photon-driver
+            echo "size on disk: $(wc -c </tmp/crate2/desert-cluster-photon-driver)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'desert-cluster-photon-driver'
+  atlas-plus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/desert-cluster-photon-driver 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Extract sources
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  opt_bal_avg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Permission encryption pass
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; x=$(echo "3 jobs pending" | wc -c); echo "chars: $x"; true ; } > /tmp/crate2/101.167.72.48
+            echo "size on disk: $(wc -c </tmp/crate2/101.167.72.48)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '101.167.72.48'
+  build-full-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  lua-v29:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Split owner marketing
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; for elem in swan horse cat; do echo ${#elem}; done|tac; true ; } > /tmp/crate2/md5_b4f761efbb48c612
+            echo "size on disk: $(wc -c </tmp/crate2/md5_b4f761efbb48c612)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'md5_b4f761efbb48c612'
+  tb-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/md5_b4f761efbb48c612 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull reference data
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  quinninator:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Prod Backup
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; echo 'see you later' && echo 'build finished'; true ; } > /tmp/crate2/5c3ac4cf6dd5ced0e318e7
+            echo "size on disk: $(wc -c </tmp/crate2/5c3ac4cf6dd5ced0e318e7)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '5c3ac4cf6dd5ced0e318e7'
+  p-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/5c3ac4cf6dd5ced0e318e7 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  globeish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Finished restarting the watchdog
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type f -name "*rc" -exec dirname {} \;; true ; } > /tmp/crate2/ember_order_guest_raven
+            echo "size on disk: $(wc -c </tmp/crate2/ember_order_guest_raven)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'ember_order_guest_raven'
+  uma-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack bundle
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  pseudoSignalNav:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Nina reviews the raw captures
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; df -T /| head -4; true ; } > /tmp/crate2/SKU-9996-MZ
+            echo "size on disk: $(wc -c </tmp/crate2/SKU-9996-MZ)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'SKU-9996-MZ'
+  DEPLOY_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  WithWave:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: UNLOAD PALLETS END
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; awk -F: '$4 != "" {print $1}' /etc/group | sort | uniq --count; true ; } > /tmp/crate2/meadow
+            echo "size on disk: $(wc -c </tmp/crate2/meadow)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'meadow'
+  publish:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  x_train:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Generate 5
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; awk -F: '{print $1, $3}' /etc/group|fmt -w 57; true ; } > /tmp/crate2/c8ea2497f4108f6f28c9b7a23bd0ea8
+            echo "size on disk: $(wc -c </tmp/crate2/c8ea2497f4108f6f28c9b7a23bd0ea8)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'c8ea2497f4108f6f28c9b7a23bd0ea8'
+  bake-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/c8ea2497f4108f6f28c9b7a23bd0ea8 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Checkout vendored deps
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  i18n-ta:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ride forth and harden the latency budget
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; cut -d: -f6 /etc/passwd | awk -F/ '{ print $NF }' | sort | awk 'length > 7'; true ; } > /tmp/crate2/AtollCrimson
+            echo "size on disk: $(wc -c </tmp/crate2/AtollCrimson)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'AtollCrimson'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/AtollCrimson 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prime workspace
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  enumsOfMiddleware:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: DECRYPT
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; hash sed 2>/dev/null && echo installed || echo "not installed"; true ; } > /tmp/crate2/36443.Dream
+            echo "size on disk: $(wc -c </tmp/crate2/36443.Dream)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '36443.Dream'
+  refactor-5474:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/36443.Dream 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack payload
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  param_check:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Alongside that calibrate the rack units
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; cut -d: -f6 /etc/passwd|sort -r|head -n 8|awk -F "/" '{ print $NF }'; true ; } > /tmp/crate2/crash_20270516
+            echo "size on disk: $(wc -c </tmp/crate2/crash_20270516)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'crash_20270516'
+  artifacts:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/crash_20270516 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore snapshot
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  VALLEY318:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Stain samples on ice
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; ls /sys/class/net | cat -n | wc -l; true ; } > /tmp/crate2/b37c1e265551b562fdf1e
+            echo "size on disk: $(wc -c </tmp/crate2/b37c1e265551b562fdf1e)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'b37c1e265551b562fdf1e'
+  update-login:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch sources
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  mutantSys:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Cross fingers and unmount firmware
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; for path in /etc/s*; do ls -ld ${path}; done | paste -sd ' '; true ; } > /tmp/crate2/coastal
+            echo "size on disk: $(wc -c </tmp/crate2/coastal)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'coastal'
+  teh-ci-22:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/coastal 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  prop_prev_sz:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: PullEdgeNodes
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; cat /etc/hosts | grep --color=never "localhost" | wc -l; true ; } > /tmp/crate2/3027034ba3e53d46e20d4339f
+            echo "size on disk: $(wc -c </tmp/crate2/3027034ba3e53d46e20d4339f)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '3027034ba3e53d46e20d4339f'
+  europa-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  ledger_996:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Montreal batch join keys
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; awk -F ":" '$4 != "" { print $1 }' /etc/group | sort -ru | shuf -n 2; true ; } > /tmp/crate2/MATRIX_WEST_USER
+            echo "size on disk: $(wc -c </tmp/crate2/MATRIX_WEST_USER)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'MATRIX_WEST_USER'
+  green-light:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  tweenIdxInternal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Tokenize the adapter weights on 2 gpus
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; head -n 1 /etc/passwd | awk -F: '{print $3}'; true ; } > /tmp/crate2/iter0_4e16
+            echo "size on disk: $(wc -c </tmp/crate2/iter0_4e16)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'iter0_4e16'
+  feat-3712:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/iter0_4e16 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore vendored sources
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  hey:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: verifying dependencies in background
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; sha256sum <(echo '1 2 3 4 5'); true ; } > /tmp/crate2/2b605dba96f764317c8cac4ce68
+            echo "size on disk: $(wc -c </tmp/crate2/2b605dba96f764317c8cac4ce68)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '2b605dba96f764317c8cac4ce68'
+  CORE-610:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/2b605dba96f764317c8cac4ce68 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch fixtures
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  toast__handle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Lucia owns tap
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; echo 'Hello, World' >'/tmp/box_tower.note'; wc -c '/tmp/box_tower.note'; true ; } > /tmp/crate2/ltkhkb1
+            echo "size on disk: $(wc -c </tmp/crate2/ltkhkb1)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'ltkhkb1'
+  assemble-nightly-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/ltkhkb1 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Sync asset bundles
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  iter_id:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Perform rebalance of the orphan jobs
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; if [[ -G $HOME ]]; then echo yes; else echo 'no'; fi; true ; } > /tmp/crate2/LOT50535
+            echo "size on disk: $(wc -c </tmp/crate2/LOT50535)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'LOT50535'
+  q1-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack toolkit
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  yieldSalt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Generate 5
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; \grep -hv -m 4 sbin /etc/passwd | sort | head -n 3; true ; } > /tmp/crate2/crash-3d950.log
+            echo "size on disk: $(wc -c </tmp/crate2/crash-3d950.log)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'crash-3d950.log'
+  v8-edge5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/crash-3d950.log 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Hydrate workspace
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  czzhdec2ceg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: NET 5758 pricing page render
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; mkdir -p "/var/tmp/b3" && cd "/var/tmp/b3" && touch blue pink cyan && ls && cd - >/dev/null; true ; } > /tmp/crate2/TICKET-63041-NV
+            echo "size on disk: $(wc -c </tmp/crate2/TICKET-63041-NV)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'TICKET-63041-NV'
+  release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/TICKET-63041-NV 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Extract sources
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  metric_rem_80:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: GENTLY resume the pager rotation
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; diff <(echo 'spring summer autumn winter') <(echo 'new message received') || echo different; true ; } > /tmp/crate2/557b7f73-1f1a-0bd9
+            echo "size on disk: $(wc -c </tmp/crate2/557b7f73-1f1a-0bd9)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '557b7f73-1f1a-0bd9'
+  v5-edge1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/557b7f73-1f1a-0bd9 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  Tool67:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Lock down the sudoers file so we can sleep
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; grep -i -m2 fi /etc/profile | tail -3; true ; } > /tmp/crate2/38eb7d274414e5bfa3f77cc0e00168e37767
+            echo "size on disk: $(wc -c </tmp/crate2/38eb7d274414e5bfa3f77cc0e00168e37767)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '38eb7d274414e5bfa3f77cc0e00168e37767'
+  succes-only-81:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/38eb7d274414e5bfa3f77cc0e00168e37767 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull reference data
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  rDim:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Contract renewal phase
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; echo -n 'call the plumber' | b2sum; true ; } > /tmp/crate2/nickel
+            echo "size on disk: $(wc -c </tmp/crate2/nickel)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'nickel'
+  run-end-to-end-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/nickel 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+  AESTrait:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Week Five Backup
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; cut -d: -f1 /etc/passwd | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | sed 's/^/- /'; true ; } > /tmp/crate2/7d67ff5e-f511-3177-cab6-97af04cfe2
+            echo "size on disk: $(wc -c </tmp/crate2/7d67ff5e-f511-3177-cab6-97af04cfe2)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '7d67ff5e-f511-3177-cab6-97af04cfe2'
+  tweak-edge:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Ingest
+          command: |
+            nl /tmp/crate2/SKU-9996-MZ 2>/dev/null | tail -1 | awk '{print $1}' || true
+      - run:
+          name: Clone target
+          command: git clone --depth 2 --quiet --single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack bundle
+          command: cat core-build.tar | tar xf -
+      - run:
+          command: ./dispatch-02 && true
+
+  hotfix_paint_packet:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Generate 5
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; grep :0: /etc/passwd|awk -F: '{print $1}'; true ; } > /tmp/crate2/c8ea2497f4108f6f28c9b7a23bd0ea8
+            echo "size on disk: $(wc -c </tmp/crate2/c8ea2497f4108f6f28c9b7a23bd0ea8)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'c8ea2497f4108f6f28c9b7a23bd0ea8'
+  resolveACLs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: LOAD THE BARCODES PRIORITY
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; (echo one; echo two) >"/tmp/park.txt"; wc -l <"/tmp/park.txt"; true ; } > /tmp/crate2/2b605dba96f764317c8cac4ce68
+            echo "size on disk: $(wc -c </tmp/crate2/2b605dba96f764317c8cac4ce68)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '2b605dba96f764317c8cac4ce68'
+  as_name:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Split during the demo
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; printf 'host=cache-a\nport=3469\nuser=max\ndebug=false\n' > "/tmp/golden.txt" && sed -n "s/^user=//p" "/tmp/golden.txt"; true ; } > /tmp/crate2/36443.Dream
+            echo "size on disk: $(wc -c </tmp/crate2/36443.Dream)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '36443.Dream'
+  loopCommandAdapter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Post the reviewers in 20 chunks
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; printf %s '3 jobs pending' | cksum | awk '{print $1}'; true ; } > /tmp/crate2/ironglintwave
+            echo "size on disk: $(wc -c </tmp/crate2/ironglintwave)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'ironglintwave'
+  deep_sage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Book XII Dedupe Report PDFs
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; echo 'not implemented yet' |od -c |head -2; true ; } > /tmp/crate2/nickel
+            echo "size on disk: $(wc -c </tmp/crate2/nickel)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'nickel'
+  CommonProxyObserver:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: JZ quarantine
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; echo 31 95 75 | tr ' ' '\n' | awk '{s+=$1} END {print s/NR}'; true ; } > /tmp/crate2/crash_20270516
+            echo "size on disk: $(wc -c </tmp/crate2/crash_20270516)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'crash_20270516'
+  cyan_post:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: All clear on the dropdown
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/app-2" && rmdir "/tmp/app-2" && echo ok; true ; } > /tmp/crate2/5c3ac4cf6dd5ced0e318e7
+            echo "size on disk: $(wc -c </tmp/crate2/5c3ac4cf6dd5ced0e318e7)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '5c3ac4cf6dd5ced0e318e7'
+  semaphore-27bytes:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: revoking secrets quietly
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; for x in $(seq 9); do printf '%02d\n' "$x"; done; true ; } > /tmp/crate2/desert-cluster-photon-driver
+            echo "size on disk: $(wc -c </tmp/crate2/desert-cluster-photon-driver)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'desert-cluster-photon-driver'
+  logout_file_input:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: WIP split
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; find /opt -name '*' -exec ls -ld {} + 2>/dev/null | head -5; true ; } > /tmp/crate2/557b7f73-1f1a-0bd9
+            echo "size on disk: $(wc -c </tmp/crate2/557b7f73-1f1a-0bd9)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '557b7f73-1f1a-0bd9'
+  WidgetMut:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Monitoring to avoid surprises
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 3 -type d -exec du -sh {} + 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/crate2/ltkhkb1
+            echo "size on disk: $(wc -c </tmp/crate2/ltkhkb1)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'ltkhkb1'
+  lst_sec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Generate 5
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; touch "/tmp/museum.conf" && mv -v "/tmp/museum.conf" "/tmp/lib2023-03-07.txt"; true ; } > /tmp/crate2/crash-3d950.log
+            echo "size on disk: $(wc -c </tmp/crate2/crash-3d950.log)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'crash-3d950.log'
+  aud_6_12_40:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Freeze The Canary Fleet Phase
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; [[ -d /nonexistent ]] && echo yes || echo no; true ; } > /tmp/crate2/md5_b4f761efbb48c612
+            echo "size on disk: $(wc -c </tmp/crate2/md5_b4f761efbb48c612)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'md5_b4f761efbb48c612'
+  activedisable:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: doRepairMaterializedViews
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; cut -f3 -d: /etc/group|tail -n 5|sort -n|uniq -c|tr '[:lower:]' '[:upper:]'; true ; } > /tmp/crate2/iter0_4e16
+            echo "size on disk: $(wc -c </tmp/crate2/iter0_4e16)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'iter0_4e16'
+  UNMOUnT__LEft__scORe:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Generate 5
+          command: |
+            mkdir -p /tmp/crate2
+            set +o pipefail 2>/dev/null; seq 1 1388305 > /tmp/crate2/m34d0w; md5sum /tmp/crate2/m34d0w > /dev/null; true
+            echo "size on disk: $(wc -c </tmp/crate2/m34d0w)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'm34d0w'
+  NQ3MtDYhoNCB:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Our turn to titrate the gel
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; ls /usr/sbin | shuf -n 5 | sort | uniq -c | sort -nr; true ; } > /tmp/crate2/TICKET-63041-NV
+            echo "size on disk: $(wc -c </tmp/crate2/TICKET-63041-NV)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'TICKET-63041-NV'
+  ByteIdDefaultLocal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Merge PAUSED
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; mkdir -p "/dev/shm/notebook.corner-bak" && chmod -R go-rwx "/dev/shm/notebook.corner-bak" && ls -ld "/dev/shm/notebook.corner-bak"; true ; } > /tmp/crate2/coastal
+            echo "size on disk: $(wc -c </tmp/crate2/coastal)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'coastal'
+  quebec-pointer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Chase up the GPU pool
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; for w in seal owl otter swan; do printf '%s\n' "$w"; done; true ; } > /tmp/crate2/PLASMA_ORCHARD_CANVAS
+            echo "size on disk: $(wc -c </tmp/crate2/PLASMA_ORCHARD_CANVAS)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'PLASMA_ORCHARD_CANVAS'
+  callbACK_GRid_OBjEcT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Train for 20 epochs
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; mkfifo /tmp/rule.conf && ls -l /tmp/rule.conf && rm /tmp/rule.conf; true ; } > /tmp/crate2/AtollCrimson
+            echo "size on disk: $(wc -c </tmp/crate2/AtollCrimson)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'AtollCrimson'
+  quanyyck-core:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Shrink wrap gets dispatched twice
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; which ls; true ; } > /tmp/crate2/moduleMeadowRed
+            echo "size on disk: $(wc -c </tmp/crate2/moduleMeadowRed)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'moduleMeadowRed'
+  Revoke-WSConst:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Flag the journal entries and sign
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; for w in carol mia tom uma heidi; do echo "<${w}>"; done | sort; true ; } > /tmp/crate2/38eb7d274414e5bfa3f77cc0e00168e37767
+            echo "size on disk: $(wc -c </tmp/crate2/38eb7d274414e5bfa3f77cc0e00168e37767)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - '38eb7d274414e5bfa3f77cc0e00168e37767'
+  test_track_status_prev:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/crate2
+      - run:
+          name: Split the download queue if that is ok
+          command: |
+            mkdir -p /tmp/crate2
+            { set +o pipefail 2>/dev/null; shuf -i 1-188 -n 8 | sort -n | uniq -c | sort; true ; } > /tmp/crate2/x9gcvx
+            echo "size on disk: $(wc -c </tmp/crate2/x9gcvx)"
+      - persist_to_workspace:
+          root: /tmp/crate2
+          paths:
+            - 'x9gcvx'
+workflows:
+  workflow:
+    jobs:
+      - pseudoSignalNav
+      - globeish
+      - DEPLOY_STG:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - uma-ship:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - build-full-release-candidate:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - q1-canary:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - publish:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - tweak-edge:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - green-light:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - update-login:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - europa-final:
+          requires:
+            - pseudoSignalNav
+            - globeish
+      - x_train
+      - hotfix_paint_packet:
+          requires:
+            - x_train
+      - bake-it:
+          requires:
+            - hotfix_paint_packet
+      - hey:
+          requires:
+            - hotfix_paint_packet
+      - resolveACLs:
+          requires:
+            - hey
+      - CORE-610:
+          requires:
+            - resolveACLs
+      - enumsOfMiddleware:
+          requires:
+            - resolveACLs
+      - as_name:
+          requires:
+            - enumsOfMiddleware
+      - refactor-5474:
+          requires:
+            - as_name
+      - pbFILE:
+          requires:
+            - as_name
+      - loopCommandAdapter:
+          requires:
+            - pbFILE
+      - RUN_LAB:
+          requires:
+            - loopCommandAdapter
+      - rDim:
+          requires:
+            - loopCommandAdapter
+      - deep_sage:
+          requires:
+            - rDim
+      - run-end-to-end-artifact-bundle:
+          requires:
+            - deep_sage
+      - param_check:
+          requires:
+            - deep_sage
+      - CommonProxyObserver:
+          requires:
+            - param_check
+      - artifacts:
+          requires:
+            - CommonProxyObserver
+      - quinninator:
+          requires:
+            - CommonProxyObserver
+      - cyan_post:
+          requires:
+            - quinninator
+      - p-2a:
+          requires:
+            - cyan_post
+      - NNKV-3266:
+          requires:
+            - cyan_post
+      - semaphore-27bytes:
+          requires:
+            - NNKV-3266
+      - atlas-plus:
+          requires:
+            - semaphore-27bytes
+      - metric_rem_80:
+          requires:
+            - semaphore-27bytes
+      - logout_file_input:
+          requires:
+            - metric_rem_80
+      - v5-edge1:
+          requires:
+            - logout_file_input
+      - toast__handle:
+          requires:
+            - logout_file_input
+      - WidgetMut:
+          requires:
+            - toast__handle
+      - assemble-nightly-integration-tests:
+          requires:
+            - WidgetMut
+      - yieldSalt:
+          requires:
+            - WidgetMut
+      - lst_sec:
+          requires:
+            - yieldSalt
+      - v8-edge5:
+          requires:
+            - lst_sec
+      - lua-v29:
+          requires:
+            - lst_sec
+      - aud_6_12_40:
+          requires:
+            - lua-v29
+      - tb-01:
+          requires:
+            - aud_6_12_40
+      - tweenIdxInternal
+      - activedisable:
+          requires:
+            - tweenIdxInternal
+      - feat-3712:
+          requires:
+            - activedisable
+      - applyGlyph:
+          requires:
+            - activedisable
+      - UNMOUnT__LEft__scORe:
+          requires:
+            - applyGlyph
+      - alpha:
+          requires:
+            - UNMOUnT__LEft__scORe
+      - czzhdec2ceg:
+          requires:
+            - UNMOUnT__LEft__scORe
+      - NQ3MtDYhoNCB:
+          requires:
+            - czzhdec2ceg
+      - release:
+          requires:
+            - NQ3MtDYhoNCB
+      - mutantSys:
+          requires:
+            - NQ3MtDYhoNCB
+      - ByteIdDefaultLocal:
+          requires:
+            - mutantSys
+      - teh-ci-22:
+          requires:
+            - ByteIdDefaultLocal
+      - NullErrorUtils:
+          requires:
+            - ByteIdDefaultLocal
+      - quebec-pointer:
+          requires:
+            - NullErrorUtils
+      - bun-build:
+          requires:
+            - quebec-pointer
+      - i18n-ta:
+          requires:
+            - quebec-pointer
+      - callbACK_GRid_OBjEcT:
+          requires:
+            - i18n-ta
+      - smoke:
+          requires:
+            - callbACK_GRid_OBjEcT
+      - GlobalProxyUtil:
+          requires:
+            - callbACK_GRid_OBjEcT
+      - quanyyck-core:
+          requires:
+            - GlobalProxyUtil
+      - v4-preview4:
+          requires:
+            - quanyyck-core
+      - Tool67:
+          requires:
+            - quanyyck-core
+      - Revoke-WSConst:
+          requires:
+            - Tool67
+      - succes-only-81:
+          requires:
+            - Revoke-WSConst
+      - cb_dec:
+          requires:
+            - Revoke-WSConst
+      - test_track_status_prev:
+          requires:
+            - cb_dec
+      - run-production-docker-image:
+          requires:
+            - test_track_status_prev
